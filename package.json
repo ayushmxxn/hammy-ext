@@ -1,0 +1,35 @@
+{
+  "name": "hammy-extension",
+  "version": "1.1.0",
+  "private": true,
+  "description": "A tiny hamster reminds you to take breathing, stretching, posture, and hydration breaks. 100% local, no tracking.",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.270",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@wxt-dev/module-react": "1.1.4",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3",
+    "wxt": "^0.19.13"
+  },
+  "overrides": {
+    "@webext-core/isolated-element": "3.0.0",
+    "@wxt-dev/module-react": {
+      "@vitejs/plugin-react": "^4.4.1"
+    }
+  }
+}

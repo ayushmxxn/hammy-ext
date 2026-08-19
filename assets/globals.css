@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    color: theme("colors.hammy.ink");
+    background: theme("colors.hammy.paper");
+  }
+
+  body {
+    font-family: theme("fontFamily.sans");
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: theme("colors.hammy.200");
+    color: theme("colors.hammy.900");
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.hammy.400");
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /*
+   * Popup chrome — flat, no gradients, no shadows. Depth comes only
+   * from a slightly-off-white page background against pure-white
+   * cards with a 1px hairline border.
+   */
+
+  .popup-shell {
+    background: theme("colors.hammy.paper");
+  }
+
+  .popup-header {
+    background: theme("colors.hammy.paper");
+  }
+
+  /*
+   * Header icon buttons
+   */
+
+  .icon-button {
+    display: inline-flex;
+    height: 28px;
+    width: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: rgb(11 19 48 / 45%);
+    outline: none;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      transform 140ms ease;
+  }
+
+  .icon-button:hover {
+    background: rgb(11 19 48 / 6%);
+    color: rgb(11 19 48 / 78%);
+  }
+
+  .icon-button:active {
+    transform: scale(0.94);
+  }
+
+  .icon-button:focus,
+  .icon-button:focus-visible {
+    outline: none;
+  }
+
+  .icon-button:focus-visible {
+    outline: 2px solid theme("colors.hammy.400");
+    outline-offset: 1px;
+  }
+
+  /*
+   * Reusable card surface — flat white, one hairline border, no
+   * shadow. This is the only thing separating a card from the page.
+   */
+
+  .hammy-card {
+    border: 1px solid rgb(11 19 48 / 9%);
+    border-radius: 14px;
+    background: white;
+  }
+
+  /*
+   * Icon chips — small neutral squares to the left of a row's label.
+   * Deliberately monochrome: gray/black only, everywhere. Blue is
+   * reserved for the on/off switch alone.
+   */
+
+  .icon-chip {
+    display: inline-flex;
+    height: 30px;
+    width: 30px;
+    flex: 0 0 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgb(11 19 48 / 5%);
+    color: rgb(11 19 48 / 55%);
+    flex-shrink: 0;
+  }
+
+  /*
+   * Settings
+   */
+
+  .settings-group {
+    overflow: hidden;
+    border: 1px solid rgb(11 19 48 / 9%);
+    border-radius: 14px;
+    background: white;
+  }
+
+  .settings-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    text-align: left;
+    outline: none;
+    transition: background-color 140ms ease;
+  }
+
+  .settings-row:hover {
+    background: rgb(11 19 48 / 3%);
+  }
+
+  .settings-title {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    line-height: 16px;
+  }
+
+  .settings-description {
+    display: block;
+    margin-top: 1px;
+    font-size: 10.5px;
+    line-height: 15px;
+    color: rgb(11 19 48 / 40%);
+  }
+
+  .settings-divider {
+    height: 1px;
+    margin: 0;
+    background: rgb(11 19 48 / 7%);
+  }
+
+  /*
+   * Break buttons — flat black primary, outlined secondary. No blue
+   * here; blue is reserved for the switch alone.
+   */
+
+  .primary-button,
+  .secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 32px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      transform 140ms ease;
+  }
+
+  .primary-button {
+    background: theme("colors.hammy.ink");
+    color: white;
+  }
+
+  .primary-button:hover {
+    background: rgb(11 19 48 / 88%);
+  }
+
+  .secondary-button {
+    border: 1px solid rgb(11 19 48 / 12%);
+    background: white;
+    color: rgb(11 19 48 / 65%);
+  }
+
+  .secondary-button:hover {
+    background: rgb(11 19 48 / 3%);
+  }
+
+  .primary-button:active,
+  .secondary-button:active {
+    transform: scale(0.97);
+  }
+
+  .primary-button:focus,
+  .primary-button:focus-visible,
+  .secondary-button:focus,
+  .secondary-button:focus-visible {
+    outline: none;
+  }
+
+  .primary-button:focus-visible,
+  .secondary-button:focus-visible {
+    outline: 2px solid theme("colors.hammy.400");
+    outline-offset: 2px;
+  }
+
+  /*
+   * Interval selector — active state is a plain white pill with a
+   * hairline border, no shadow.
+   */
+
+  .interval-active-pill {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid rgb(11 19 48 / 8%);
+    animation: interval-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: theme("colors.hammy.300");
+    border-radius: 999px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@keyframes interval-in {
+  from {
+    opacity: 0.55;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

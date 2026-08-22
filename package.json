@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "wxt",
     "build": "wxt build",
+    "build:edge": "wxt build -b edge",
     "zip": "wxt zip",
+    "zip:edge": "wxt zip -b edge",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },

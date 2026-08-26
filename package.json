@@ -1,6 +1,6 @@
 {
   "name": "hammy-extension",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
   "description": "A tiny hamster reminds you to take breathing, stretching, posture, and hydration breaks. 100% local, no tracking.",
   "type": "module",
@@ -8,8 +8,11 @@
     "dev": "wxt",
     "build": "wxt build",
     "build:edge": "wxt build -b edge",
+    "dev:firefox": "wxt -b firefox",
+    "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "zip:edge": "wxt zip -b edge",
+    "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare"
   },

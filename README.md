@@ -1,127 +1,113 @@
-# Hammy 🐹
+# Hammy - Break Reminder
 
-### Gentle break reminders with a tiny hamster.
+A local-only browser extension built with **WXT**. Hammy reminds you to breathe, sit up straight, rest your eyes, drink water, and stretch
 
-Hammy helps you take short breaks from your screen with simple, animated reminders to breathe, stretch, rest your eyes, fix your posture, and drink some water.
-
-**Tech:** WXT · React · TypeScript · Tailwind CSS · Web Extension APIs
-
-**Browsers:** Chrome · Edge · Firefox
+Supported browsers: **Chrome**, **Edge**, and **Firefox**.
 
 [![Hammy in action](https://img.youtube.com/vi/RCkKC7_nB_M/maxresdefault.jpg)](https://www.youtube.com/watch?v=RCkKC7_nB_M)
 
-## What it does
-
-- 🫁 **Breathe** — slow down with a few guided breaths
-- 🪑 **Posture** — reset your shoulders, spine, and jaw
-- 👀 **Eye Break** — rest your eyes with the 20-20-20 rule
-- 💧 **Drink Water** — a small reminder to hydrate
-- 🧘 **Stretch** — stand up and move around
-
-Choose your break interval, break types, order, snooze duration, sound, and notifications.
-
-## How it works
-
-When it's time for a break, Hammy takes over your open tabs with the break animation.
-
-There's no complicated interface. **Just take the break.**
-
-The animation finishes automatically and you're back to work. Press `Esc` if you need to skip a break.
-
-Hammy uses browser alarms for scheduling, stores everything locally, and syncs the active break across open tabs.
-
 ## Privacy
 
-Hammy works entirely on your device.
+Hammy is 100% local:
 
-- No accounts
-- No analytics
-- No tracking
+- No user accounts
+- No analytics or tracking
 - No network requests
-- No data collection
+- No data collection of any kind
 
-Your settings and stats stay in your browser's local storage.
+Everything lives locally in `chrome.storage.local` on your machine.
 
-## Development
+## Features
 
-### Setup
+- **Five break types**: Breathing, posture, eye break, hydration, and stretch — each with its own short animated video.
+- **Custom `.webm` videos**: Use Hammy's built-in hamster animations or upload your own custom `.webm` break video stored locally.
+- **Website exclusions**: Add websites where breaks should never interrupt you (e.g., video calls or media sites).
+- **Typing-aware timing**: Waits for a natural pause in your typing before showing a break overlay instead of interrupting mid-sentence.
+- **Popup settings**: Configure break intervals, sound, freeze-on-break, custom videos, and exclusions directly inside the toolbar popup. No separate settings page needed.
+- **Cross-browser**: Runs seamlessly on Chrome, Edge, and Firefox from a single codebase.
 
-```bash
-git clone https://github.com/ayushmxxn/hammy-ext.git
-cd hammy-ext
-npm install
-npm run dev
-```
+## Tech stack
 
-### Build for production
-
-```bash
-npm run build
-```
-
-Browser-specific build commands are available in `package.json`.
-
-### Add the animations
-
-Add the five WebM animations to `public/videos/`:
-
-```text
-public/videos/
-├── hammy-breathe.webm
-├── hammy-posture.webm
-├── hammy-eye-break.webm
-├── hammy-drink-water.webm
-└── hammy-stretch.webm
-```
-
-### Load locally
-
-**Chrome**
-
-`chrome://extensions` → Developer mode → Load unpacked → select the generated `.output/` build.
-
-**Firefox**
-
-`about:debugging#/runtime/this-firefox` → Load Temporary Add-on → select the generated `manifest.json`.
-
-Already-open tabs may need a refresh after installing or reloading the extension.
+- [WXT](https://wxt.dev) — Web Extension Framework
+- React 18 + TypeScript
+- Tailwind CSS
+- Web Extension APIs (`chrome.alarms`, `chrome.storage.local`, `chrome.action`)
 
 ## Project structure
 
-```text
-hammy-ext/
-├── entrypoints/    # background, content script, popup, settings
-├── components/     # reusable UI
-├── lib/            # storage, scheduling, messaging, break logic
-├── public/videos/  # Hammy break animations
-├── types/
-├── wxt.config.ts
+```
+hammy/
+├── wxt.config.ts               WXT configuration
+├── public/
+│   ├── icon-16.png
+│   ├── icon-48.png
+│   ├── icon-128.png
+│   └── videos/                  built-in break videos
+├── entrypoints/
+│   ├── background.ts             background service worker (alarms, scheduling)
+│   ├── content/
+│   │   ├── index.tsx              content script entrypoint
+│   │   └── BreakOverlayApp.tsx    break overlay component
+│   └── popup/
+│       ├── index.html            popup entrypoint
+│       ├── main.tsx
+│       └── App.tsx                popup UI and settings
+├── components/                  reusable UI components
+├── lib/                         storage, alarms, exclusions, typing detection
+├── assets/globals.css            styles and keyframes
+├── types/                       TypeScript interfaces
 └── package.json
 ```
 
-## Transparent video
+## Setup & Development
 
-Hammy's animations use transparent WebM video. The source clips need an actual alpha channel.
+### 1. Install dependencies
 
 ```bash
-ffmpeg -i input.mov \
-  -c:v libvpx-vp9 \
-  -pix_fmt yuva420p \
-  -b:v 2M \
-  -auto-alt-ref 0 \
-  output.webm
+npm install
 ```
 
-## Contributing
+### 2. Local dev mode
 
-Found a bug or have an idea? Open an issue or pull request.
+```bash
+npm run dev            # Chrome
+npm run dev:firefox    # Firefox
+```
 
-Keep changes focused and avoid unnecessary complexity.
+### 3. Build for production
 
-## License
+```bash
+npm run build          # Chrome
+npm run build:edge     # Edge
+npm run build:firefox  # Firefox
+```
 
-See the repository for license information.
+Production builds are output to **`dist-builds/`**:
 
----
+- Chrome: `dist-builds/chrome-mv3/`
+- Edge: `dist-builds/edge-mv3/`
+- Firefox: `dist-builds/firefox-mv3/`
 
-Made with 🤍 by [@ayushmxxn](https://github.com/ayushmxxn)
+### 4. Load into your browser
+
+**Chrome / Edge:**
+
+1. Open `chrome://extensions` or `edge://extensions`.
+2. Enable **Developer mode** (top-right toggle).
+3. Click **Load unpacked**.
+4. Select `dist-builds/chrome-mv3/` (or `dist-builds/edge-mv3/`).
+
+**Firefox:**
+
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on**.
+3. Select any file inside `dist-builds/firefox-mv3/`.
+
+## How it works
+
+- **Alarms & Scheduling**: Uses `chrome.alarms` so timing persists across browser restarts and background service worker unloads.
+- **Typing Awareness**: Detects active typing input and waits for a pause before triggering a break overlay.
+- **Break Overlay**: When a break fires, a content script mounts a Shadow DOM overlay playing the break video across your active tabs.
+- **Custom Videos & Exclusions**: Upload a custom `.webm` clip or manage excluded domain lists directly in the popup UI.
+- **Sound & Freeze Settings**: Toggle audio playback and freeze page scrolling during breaks.
+- **Local Persistence**: All configuration, streaks, stats, and states are stored safely in `chrome.storage.local`.

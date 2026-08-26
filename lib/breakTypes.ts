@@ -1,10 +1,7 @@
+import { browser } from 'wxt/browser';
+import type { PublicPath } from 'wxt/browser';
 import type { BreakType, BreakTypeId } from '@/types';
 
-/**
- * The five break types Hammy offers. Each maps 1:1 to a required
- * webm asset in /public/videos. Filenames are exact and must match
- * what you place on disk — see project README.
- */
 export const BREAK_TYPES: BreakType[] = [
   {
     id: 'breathe',
@@ -82,7 +79,6 @@ export const BREAK_TYPES: BreakType[] = [
     }
   }
 ];
-
 export const BREAK_TYPE_MAP: Record<BreakTypeId, BreakType> = BREAK_TYPES.reduce(
   (acc, bt) => {
     acc[bt.id] = bt;
@@ -90,12 +86,11 @@ export const BREAK_TYPE_MAP: Record<BreakTypeId, BreakType> = BREAK_TYPES.reduce
   },
   {} as Record<BreakTypeId, BreakType>
 );
-
 export function getBreakType(id: BreakTypeId): BreakType {
   return BREAK_TYPE_MAP[id];
 }
 
-/** Resolve a break's video to a usable extension URL. */
 export function getVideoUrl(breakType: BreakType): string {
-  return chrome.runtime.getURL(`videos/${breakType.video}`);
+
+  return browser.runtime.getURL(`/videos/${breakType.video}` as PublicPath);
 }

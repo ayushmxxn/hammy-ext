@@ -7,7 +7,6 @@ interface TimerProps {
   onReachZero?: () => void;
 }
 
-/** Renders a self-updating "MM:SS" (or "1h 05m") countdown to a target time. */
 export default function Timer({
   targetTimestamp,
   className = '',
@@ -24,7 +23,7 @@ export default function Timer({
 
   useEffect(() => {
     if (msLeft <= 0) onReachZero?.();
-  }, [msLeft <= 0]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [msLeft <= 0]);
 
   return (
     <span className={className} aria-live="polite">

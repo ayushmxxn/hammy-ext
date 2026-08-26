@@ -1,10 +1,3 @@
-/**
- * Compact icon-button toggle for whether a break takes over the full
- * page or shows as a small floating card instead. Lives in the popup
- * header next to the sound toggle — a quick switch, not a full
- * settings-page row (that version lives in Options too, for
- * discoverability).
- */
 export default function FreezeToggleButton({
   freeze,
   onToggle
@@ -29,8 +22,6 @@ export default function FreezeToggleButton({
     </button>
   );
 }
-
-/** Full-page takeover — a single solid frame. */
 function FreezeIcon() {
   return (
     <svg
@@ -48,8 +39,6 @@ function FreezeIcon() {
     </svg>
   );
 }
-
-/** Floating corner card over an untouched page — picture-in-picture style. */
 function FloatIcon() {
   return (
     <svg

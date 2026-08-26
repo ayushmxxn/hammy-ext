@@ -5,6 +5,7 @@ node_modules/
 .output/
 .output-*/
 dist/
+dist-builds/
 
 # Environment variables
 .env

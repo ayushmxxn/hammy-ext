@@ -1,22 +1,25 @@
-import { setNextBreakAt } from './storage';
+import type { Alarms } from 'wxt/browser';
+import { browser } from 'wxt/browser';
+import { setNextBreakAt, setBreakDueSince } from './storage';
 
 export const BREAK_ALARM_NAME = 'hammy-break-alarm';
 
-/** Schedules the next break alarm `minutes` from now and persists the ETA. */
+export const TYPING_RECHECK_ALARM_NAME = 'hammy-typing-recheck-alarm';
 export async function scheduleNextBreak(minutes: number): Promise<number> {
-  await chrome.alarms.clear(BREAK_ALARM_NAME);
+  await browser.alarms.clear(BREAK_ALARM_NAME);
+  await browser.alarms.clear(TYPING_RECHECK_ALARM_NAME);
+  await setBreakDueSince(null);
   const when = Date.now() + minutes * 60_000;
-  chrome.alarms.create(BREAK_ALARM_NAME, { when });
+  await browser.alarms.create(BREAK_ALARM_NAME, { when });
   await setNextBreakAt(when);
   return when;
 }
-
-/** Cancels any scheduled break alarm and clears the stored ETA. */
 export async function cancelScheduledBreak(): Promise<void> {
-  await chrome.alarms.clear(BREAK_ALARM_NAME);
+  await browser.alarms.clear(BREAK_ALARM_NAME);
+  await browser.alarms.clear(TYPING_RECHECK_ALARM_NAME);
   await setNextBreakAt(null);
+  await setBreakDueSince(null);
 }
-
-export async function getBreakAlarm(): Promise<chrome.alarms.Alarm | undefined> {
-  return chrome.alarms.get(BREAK_ALARM_NAME);
+export async function getBreakAlarm(): Promise<Alarms.Alarm | undefined> {
+  return browser.alarms.get(BREAK_ALARM_NAME);
 }

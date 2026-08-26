@@ -1,4 +1,3 @@
-/** Formats milliseconds-until as a friendly "12:34" or "1h 05m" string. */
 export function formatCountdown(msUntil: number): string {
   const totalSeconds = Math.max(0, Math.round(msUntil / 1000));
   const hours = Math.floor(totalSeconds / 3600);

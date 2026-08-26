@@ -1,10 +1,3 @@
-/**
- * Compact icon-button toggle for whether break videos play with sound.
- * Lives in the popup header (top right) rather than as a full switch —
- * it's a quick mute/unmute, not a settings-page-style on/off row.
- * Backed by the same `settings.soundEnabled` the options page's
- * "Toggle notification sound" switch controls, so both stay in sync.
- */
 export default function SoundToggleButton({
   enabled,
   onToggle
@@ -25,7 +18,6 @@ export default function SoundToggleButton({
     </button>
   );
 }
-
 function SoundOnIcon() {
   return (
     <svg
@@ -45,7 +37,6 @@ function SoundOnIcon() {
     </svg>
   );
 }
-
 function SoundOffIcon() {
   return (
     <svg

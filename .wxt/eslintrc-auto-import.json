@@ -1,15 +1,12 @@
 {
   "globals": {
-    "BreakCard": true,
     "ContentScriptContext": true,
     "CreditFooter": true,
     "FreezeToggleButton": true,
-    "HammyHeader": true,
     "HammyVideo": true,
     "InvalidMatchPattern": true,
     "MatchPattern": true,
     "MigrationError": true,
-    "ProgressRing": true,
     "SoundToggleButton": true,
     "Switch": true,
     "Timer": true,
